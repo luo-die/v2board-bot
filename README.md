@@ -5,3 +5,4 @@
 - 1.导入update.sql
 - 2.替换TelegramController.php
 - 3.修改签到奖励，修改抽奖奖励
+- 4. 对抽奖做了时间限制 by luo
