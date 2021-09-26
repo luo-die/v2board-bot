@@ -197,6 +197,8 @@ class TelegramController extends Controller
         }
         $telegramService->sendMessage($msg->chat_id, $text, 'markdown');
     }
+            //ONEFALL.TOP提醒
+            //如果要将时间精确到分钟或秒请在Ymdh后面增加i或is
     private function lucky()
     {
         $msg = $this->msg;
@@ -209,11 +211,11 @@ class TelegramController extends Controller
             return;
         }
         $lastluckyat = $user->last_lucky_at ;
-        $last = date('Ymdh', $lastluckyat);
-        $today = date('Ymdh');
+        $last = date('Ymdh', $lastluckyat);//在这里增加
+        $today = date('Ymdh'); //和这里
         if ($last != $today ) {
             //吱吱提醒  
-            //下面括号内填写签到的奖励范围，单位MB，例如填写 (-1024,1024);表示随机奖励-1024到1024MB
+            //下面括号内填写抽奖的奖励范围，单位MB，例如填写 (-1024,1024);表示随机奖励-1024到1024MB
             $randomtraffic = random_int(0,888);
             $gifttraffic = $randomtraffic * 1024 * 1024;
             $user->transfer_enable += $gifttraffic;
