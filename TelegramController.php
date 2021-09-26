@@ -207,15 +207,23 @@ class TelegramController extends Controller
             $this->help();
             $telegramService->sendMessage($msg->chat_id, '没有查询到您的用户信息，请先绑定账号', 'markdown');
             return;
-        }      
+        }
+        $lastluckyat = $user->last_lucky_at ;
+        $last = date('Ymdh', $lastluckyat);
+        $today = date('Ymdh');
+        if ($last != $today ) {
             //吱吱提醒  
             //下面括号内填写签到的奖励范围，单位MB，例如填写 (-1024,1024);表示随机奖励-1024到1024MB
-            $randomtraffic = random_int(-1024,1024);
+            $randomtraffic = random_int(0,888);
             $gifttraffic = $randomtraffic * 1024 * 1024;
             $user->transfer_enable += $gifttraffic;
             $gift = Helper::trafficConvert($gifttraffic);
+            $user->last_lucky_at = time();
             $user->save();
             $text = "恭喜您获得奖励：`{$gift}`";
+        }else{
+            $text = "等一个小时再抽奖呢";
+        }
         
         $telegramService->sendMessage($msg->chat_id, $text, 'markdown');
     }
